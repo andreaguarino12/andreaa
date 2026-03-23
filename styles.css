@@ -90,10 +90,6 @@ body.menu-open {
   overflow: hidden;
 }
 
-body.cookie-lock {
-  overflow: hidden;
-}
-
 .page-shell {
   width: min(1200px, calc(100% - 32px));
   margin: 0 auto;
@@ -224,6 +220,7 @@ body.menu-open .menu-toggle span:last-child {
 .side-menu-backdrop {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background: rgba(4, 10, 22, 0.38);
   opacity: 0;
   transition: opacity 320ms ease;
@@ -233,6 +230,8 @@ body.menu-open .menu-toggle span:last-child {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
+  pointer-events: auto;
   width: min(380px, 86vw);
   height: 100%;
   padding: 104px 28px 28px;
@@ -285,9 +284,14 @@ body.menu-open .side-menu-panel > * {
 .side-menu-links {
   display: grid;
   gap: 12px;
+  pointer-events: auto;
 }
 
 .side-menu-links a {
+  display: block;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
   padding: 14px 16px;
   border-left: 2px solid transparent;
   background: rgba(255, 255, 255, 0.05);
@@ -296,6 +300,8 @@ body.menu-open .side-menu-panel > * {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
 }
 
@@ -435,18 +441,21 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 2;
   min-height: 52px;
   padding: 0 24px;
   border-radius: 999px;
   font-size: 0.96rem;
   font-weight: 800;
   letter-spacing: 0.03em;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
     border-color 180ms ease,
     background 180ms ease;
-  transform-style: preserve-3d;
 }
 
 .button:hover {
@@ -487,6 +496,7 @@ main {
 
 .section {
   padding: 44px 0 0;
+  scroll-margin-top: 24px;
   transform: translateY(var(--reveal-y, 0)) scale(var(--reveal-scale, 1));
 }
 
@@ -631,6 +641,7 @@ main {
   grid-template-columns: minmax(0, 1fr) 320px;
   gap: 36px;
   padding: 34px 0;
+  scroll-margin-top: 24px;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -798,6 +809,10 @@ main {
   margin-top: 32px;
   color: #d7f5ff;
   opacity: 0.92;
+  position: relative;
+  z-index: 2;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .scroll-mouse {
@@ -860,6 +875,8 @@ main {
   border-radius: 0;
   background: transparent;
   color: #dff3ff;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition:
     transform 240ms ease,
     border-color 240ms ease,
@@ -896,7 +913,7 @@ main {
   padding: 0 16px;
   pointer-events: none;
   opacity: 0;
-  background: rgba(4, 10, 22, 0.6);
+  background: transparent;
   transition: opacity 320ms ease;
 }
 
@@ -927,7 +944,7 @@ main {
 
 .cookie-overlay.is-visible {
   opacity: 1;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .cookie-overlay.is-visible .cookie-banner {
@@ -1131,6 +1148,57 @@ main {
   .quote {
     max-width: none;
   }
+
+  .menu-toggle,
+  .button,
+  .scroll-cue,
+  .side-menu-panel,
+  .side-menu-links a,
+  .contact-card,
+  .section,
+  .card,
+  .benefit,
+  .website-callout,
+  .sponsor-panel {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .menu-toggle,
+  .button.secondary,
+  .cookie-banner {
+    backdrop-filter: none;
+  }
+
+  .section,
+  .card,
+  .benefit,
+  .website-callout,
+  .sponsor-panel,
+  .scroll-cue {
+    opacity: 1;
+    letter-spacing: 0;
+    transition: opacity 320ms ease;
+  }
+
+  .menu-toggle:hover,
+  .button:hover,
+  .contact-card:hover,
+  .side-menu-links a:hover,
+  .cookie-link-button:hover {
+    transform: none;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1100px) {
+  .menu-toggle,
+  .side-menu {
+    display: none !important;
+  }
+
+  .contact-link {
+    display: inline-flex;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1158,6 +1226,7 @@ main {
 
   .website-callout {
     padding: 26px 0;
+    scroll-margin-top: 18px;
   }
 
   .sponsor-panel {
@@ -1166,6 +1235,10 @@ main {
 
   .intro {
     padding-top: 44px;
+  }
+
+  .section {
+    scroll-margin-top: 18px;
   }
 
   .intro-entrance-canvas {
@@ -1208,6 +1281,13 @@ main {
 
   .hero-actions {
     flex-direction: column;
+  }
+
+  .hero-actions,
+  .scroll-cue,
+  .menu-toggle,
+  .side-menu {
+    display: none !important;
   }
 
   .button {
