@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Andrea Guarino">
+  <defs>
+    <linearGradient id="bg" x1="8" x2="56" y1="8" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#35b8ff" />
+      <stop offset="1" stop-color="#1665d8" />
+    </linearGradient>
+    <linearGradient id="glow" x1="14" x2="50" y1="14" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7ef2ff" />
+      <stop offset="1" stop-color="#ff4fc3" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#07111f" />
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#bg)" />
+  <path d="M17 44L28.6 19h6L46 44h-6.1l-2-5.4h-12.7L23.1 44zm14.5-18.7L27.8 34h7.4z" fill="#f4fbff" />
+  <path d="M54 34.2v6.1c-2.2 2.6-5.8 4.2-10.2 4.2-8 0-13.7-5.4-13.7-13.1s5.9-13.1 13.9-13.1c4 0 7.2 1.2 9.7 3.7l-4.1 4c-1.5-1.4-3.2-2.1-5.3-2.1-4.3 0-7.4 3-7.4 7.5s3.1 7.5 7.5 7.5c1.4 0 2.8-.2 4.1-.9v-2.8h-4.9v-5h10.4z" fill="url(#glow)" />
+</svg>
