@@ -17,6 +17,8 @@
     />
     <meta property="og:url" content="https://andreaguarino.eu/" />
     <meta property="og:site_name" content="Andrea Guarino" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -540,10 +542,14 @@
 
           for (const link of sideMenuLinks) {
             link.addEventListener("click", () => {
-              setMenuState(false);
+              window.setTimeout(() => setMenuState(false), 10);
             });
           }
         }
+
+        window.addEventListener("hashchange", () => {
+          setMenuState(false);
+        });
 
         window.addEventListener("keydown", (event) => {
           if (event.key === "Escape") {
