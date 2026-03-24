@@ -24,6 +24,14 @@ html {
   background: #06111f;
 }
 
+html.cookie-banner-open {
+  overflow: hidden;
+}
+
+html.menu-open {
+  overflow: hidden;
+}
+
 body {
   position: relative;
   margin: 0;
@@ -48,6 +56,11 @@ body {
   left: -12vw;
   z-index: -3;
   pointer-events: none;
+}
+
+.vanta-fog-layer,
+.vanta-fog-layer canvas {
+  pointer-events: none !important;
 }
 
 body::before,
@@ -88,6 +101,18 @@ a {
 
 body.menu-open {
   overflow: hidden;
+}
+
+body.cookie-banner-open {
+  overflow: hidden;
+}
+
+.cookie-overlay[hidden] {
+  display: none !important;
+}
+
+.side-menu[hidden] {
+  display: none !important;
 }
 
 .page-shell {
@@ -212,7 +237,7 @@ body.menu-open .menu-toggle span:last-child {
 .side-menu {
   position: fixed;
   inset: 0;
-  z-index: 25;
+  z-index: 10010;
   pointer-events: none;
   display: none;
 }
@@ -234,6 +259,8 @@ body.menu-open .menu-toggle span:last-child {
   pointer-events: auto;
   width: min(380px, 86vw);
   height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 104px 28px 28px;
   background:
     linear-gradient(180deg, rgba(8, 20, 38, 0.96), rgba(13, 31, 55, 0.94)),
@@ -288,7 +315,9 @@ body.menu-open .side-menu-panel > * {
 }
 
 .side-menu-links a {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 52px;
   position: relative;
   z-index: 1;
   pointer-events: auto;
@@ -910,11 +939,11 @@ main {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 16px;
+  padding: max(12px, env(safe-area-inset-top)) 16px max(12px, env(safe-area-inset-bottom));
   pointer-events: none;
   opacity: 0;
-  background: transparent;
-  transition: opacity 320ms ease;
+  background: rgba(4, 10, 22, 0);
+  transition: opacity 320ms ease, background 320ms ease;
 }
 
 .cookie-banner {
@@ -925,7 +954,6 @@ main {
   gap: 18px;
   width: min(720px, calc(100% - 32px));
   max-height: min(78vh, 720px);
-  margin-top: max(18px, env(safe-area-inset-top));
   padding: 34px 30px 28px;
   border: 1px solid rgba(87, 191, 255, 0.18);
   border-radius: 26px;
@@ -940,11 +968,14 @@ main {
   transition: opacity 320ms ease, transform 320ms ease;
   pointer-events: auto;
   will-change: transform;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .cookie-overlay.is-visible {
   opacity: 1;
-  pointer-events: none;
+  pointer-events: auto;
+  background: rgba(4, 10, 22, 0.58);
 }
 
 .cookie-overlay.is-visible .cookie-banner {
@@ -1013,6 +1044,7 @@ main {
 .cookie-consent-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 14px;
   margin-top: 4px;
 }
@@ -1023,6 +1055,7 @@ main {
 }
 
 .cookie-toggle {
+  flex-shrink: 0;
   position: relative;
   width: 68px;
   height: 38px;
@@ -1170,6 +1203,21 @@ main {
     backdrop-filter: none;
   }
 
+  .cookie-banner {
+    width: min(100%, 640px);
+    max-height: min(76dvh, 640px);
+    border-radius: 24px;
+    transform: translateY(-28px);
+  }
+
+  .cookie-overlay.is-hidden .cookie-banner {
+    transform: translateY(-28px);
+  }
+
+  .cookie-text {
+    font-size: 0.98rem;
+  }
+
   .section,
   .card,
   .benefit,
@@ -1191,13 +1239,13 @@ main {
 }
 
 @media (min-width: 641px) and (max-width: 1100px) {
-  .menu-toggle,
-  .side-menu {
-    display: none !important;
-  }
-
   .contact-link {
     display: inline-flex;
+  }
+
+  .side-menu-panel {
+    width: min(420px, 78vw);
+    padding-top: 112px;
   }
 }
 
@@ -1283,11 +1331,31 @@ main {
     flex-direction: column;
   }
 
-  .hero-actions,
-  .scroll-cue,
-  .menu-toggle,
-  .side-menu {
+  .scroll-cue {
     display: none !important;
+  }
+
+  .menu-toggle {
+    display: inline-flex !important;
+  }
+
+  .side-menu {
+    display: block !important;
+  }
+
+  .side-menu-panel {
+    width: min(340px, calc(100vw - 20px));
+    padding: 88px 18px 22px;
+  }
+
+  .side-menu-links {
+    gap: 10px;
+  }
+
+  .side-menu-links a {
+    min-height: 50px;
+    padding: 14px;
+    font-size: 0.88rem;
   }
 
   .button {
@@ -1296,10 +1364,10 @@ main {
 
   .cookie-banner {
     width: 100%;
-    max-height: min(82vh, 680px);
-    margin-top: max(12px, env(safe-area-inset-top));
-    padding: 26px 18px 22px;
-    transform: translateY(-24px);
+    max-height: min(84dvh, 680px);
+    padding: 22px 18px 18px;
+    border-radius: 22px;
+    transform: translateY(-20px);
   }
 
   .cookie-overlay.is-visible .cookie-banner {
@@ -1307,7 +1375,7 @@ main {
   }
 
   .cookie-overlay.is-hidden .cookie-banner {
-    transform: translateY(-24px);
+    transform: translateY(-20px);
   }
 
   .cookie-actions {
@@ -1320,8 +1388,12 @@ main {
   }
 
   .cookie-consent-row {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .cookie-consent-label {
+    font-size: 0.95rem;
   }
 
   .contact-list {
