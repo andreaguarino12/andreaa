@@ -1355,6 +1355,10 @@ main {
     flex-direction: column;
   }
 
+  .hero-actions {
+    display: none;
+  }
+
   .scroll-cue {
     display: none !important;
   }
