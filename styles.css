@@ -425,6 +425,10 @@ h1 {
   white-space: nowrap;
 }
 
+.title-lock {
+  white-space: nowrap;
+}
+
 .title-focus {
   display: inline-block;
   color: #7ef2ff;
@@ -1324,6 +1328,10 @@ main {
 
   .no-break {
     white-space: normal;
+  }
+
+  .title-lock {
+    white-space: nowrap;
   }
 
   .lead {
